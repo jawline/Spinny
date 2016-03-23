@@ -1,36 +1,44 @@
 <html>
 
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<link rel="stylesheet" href="main.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<script src="lib/jquery.min.js"></script>
-	<script src="lib/bootstrap.min.js"></script>
-	<script src="lib/velocity.min.js"></script>
-	<script src="main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="lib/spinny.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/velocity.min.js"></script>
+    <script src="lib/spinny.js"></script>
 </head>
 
 <body>
-	
-	<div id="lb" class="bar"></div>
-	<div id="rb" class="bar right-bar"></div>
-	<div id="loader" class="loader">
-		<span class="glyphicon glyphicon-cog"></span>
-	</div>
 
-	<h3>Page Loaded</h3>
+    <div id="lb" class="bar"></div>
+    <div id="rb" class="bar right-bar"></div>
+    <div id="loader" class="loader">
+        <span class="glyphicon glyphicon-cog"></span>
+    </div>
 
-	<script>
-		$(function() {
-			console.log('Starting');
-			var q = new Spinny($('#loader'), $('#lb'), $('#rb')).start();
+    <h3>Page Loaded</h3>
 
-			setTimeout(function() {
-				q.stop();
-			}, 2000);
-		});
-	</script>
+    <script>
+        $(function() {
+            console.log('Starting');
+            var q = new Spinny($('#loader'), $('#lb'), $('#rb'));
+
+            function cycle() {
+            	q.start();
+                setTimeout(function() {
+                    q.stop();
+                    setTimeout(function() {
+                        q.reset(cycle);
+                    }, 3000);
+                }, 2000);
+            }
+
+            cycle();
+        });
+    </script>
 </body>
 
 </html>
